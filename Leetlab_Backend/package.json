@@ -1,0 +1,20 @@
+{
+  "name": "leetlab_backend",
+  "version": "1.0.0",
+  "description": "A leetlab project for practicing the coding question.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "Himanshu Maurya",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  }
+}
