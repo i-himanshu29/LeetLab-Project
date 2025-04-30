@@ -48,8 +48,11 @@ export const createProblem = async (req, res) => {
       const submissionResults = await submitBatch(submissions);
 
       const tokens = submissionResults.map((res) => res.token);
+      console.log("tokens....",tokens)
 
       const results = await pollBatchResults(tokens);
+
+      console.log("results....",results);
 
       for (let i = 0; i < results.length; i++) {
         const result = results[i];

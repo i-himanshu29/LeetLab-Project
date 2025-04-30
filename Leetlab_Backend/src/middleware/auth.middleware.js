@@ -56,7 +56,7 @@ export const checkAdmin = async (req, res, next) => {
       where: {
         id: userId,
       },
-      selected: {
+      select: {
         role: true,
       },
     });
