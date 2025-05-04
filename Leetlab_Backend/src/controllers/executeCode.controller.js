@@ -1,4 +1,9 @@
-import { pollBatchResults, submitBatch } from "../libs/judge0.lib.js";
+import {
+  pollBatchResults,
+  submitBatch,
+  getLanguageName,
+} from "../libs/judge0.lib.js";
+import { db } from "../libs/db.js";
 
 export const executeCode = async (req, res) => {
   try {
@@ -38,10 +43,116 @@ export const executeCode = async (req, res) => {
 
     console.log("Result-----------------", results);
 
+    // analyse test case result
+    let allPassed = true;
+    const detailedResults = results.map((result, i) => {
+      const stdout = result.stdout?.trim();
+      const expected_output = expected_outputs[i]?.trim();
+      const passed = stdout === expected_output;
+
+      console.log(`Testcase #${i + 1}`);
+      console.log(`Input for testcase #${i + 1}: ${stdin[i]}`);
+      console.log(
+        `Expected Output for the testcase #${i + 1}:${expected_output}`
+      );
+      console.log(`Actual output for testcase #${i + 1}: ${stdout}`);
+
+      console.log(`Matched testcase #${i + 1}: ${passed}`);
+
+      if (!passed) allPassed = false;
+      return {
+        testCase: i + 1,
+        passed,
+        stdout,
+        expected: expected_output,
+        stderr: result.stderr || null,
+        compile_output: result.compile_output || null,
+        status: result.status.description,
+        memory: result.memory ? `${result.memory} KB` : undefined,
+        time: result.time ? `${result.time} s` : undefined,
+      };
+    });
+
+    console.log(detailedResults);
+
+    // store the submission summary
+    const submission = await db.submission.create({
+      data: {
+        userId,
+        problemId,
+        source_code: source_code,
+        language: getLanguageName(language_id),
+        stdin: stdin.join("\n"),
+        stdout: JSON.stringify(detailedResults.map((r) => r.stdout)),
+        stderr: detailedResults.some((r) => r.stderr)
+          ? JSON.stringify(detailedResults.some((r) => r.stderr))
+          : null,
+        compiledOutput: detailedResults.some((r) => r.compile_output)
+          ? JSON.stringify(detailedResults.some((r) => r.compile_output))
+          : null,
+        status: allPassed ? "Accepted" : "Wrong Answer", // you can store enum values as well (refer schema)
+        memory: detailedResults.some((r) => r.memory)
+          ? JSON.stringify(detailedResults.some((r) => r.memory))
+          : null,
+        time: detailedResults.some((r) => r.time)
+          ? JSON.stringify(detailedResults.some((r) => r.time))
+          : null,
+      },
+    });
+
+    // if all passed == true mark problem as solved for the current user
+    if (allPassed) {
+      await db.problemSolved.upsert({
+        where: {
+          userId_problemId: {
+            userId,
+            problemId,
+          },
+        },
+        update: {},
+        create: {
+          userId,
+          problemId,
+        },
+      });
+    }
+
+    // 8. save individual test case results using detailedResult
+
+    const testCaseResults = detailedResults.map((result) => ({
+      submissionId: submission.id,
+      testCase: result.testCase,
+      passed: result.passed,
+      stdout: result.stdout,
+      expected: result.expected,
+      srderr: result.stderr,
+      compiledOutput: result.compile_output,
+      status: result.status,
+      memory: result.memory,
+      time: result.time,
+    }));
+
+    await db.testCaseResult.createMany({
+      data: testCaseResults,
+    });
+
+    //
+    const submissionWithTestCase = await db.submission.findUnique({
+      where: {
+        id: submission.id,
+      },
+      include: {
+        testCases: true,
+      },
+    });
+
     res.status(200).json({
-      message: "Code Executed",
+      success: "true",
+      message: "Code Executed successfully",
+      submission: submissionWithTestCase,
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error executing code:", error.message);
+    res.status(500).json({ error: "Failed to execute code" });
   }
 };

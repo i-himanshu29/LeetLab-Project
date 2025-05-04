@@ -64,6 +64,12 @@ model Problem {
   solvedBy   ProblemSolved[]
 }
 
+// you can implement like this for enhancement
+// enum Status{
+//   ACCEPTED
+//   WORNG_ANSWER
+// }
+
 model Submission {
   id            String  @id @default(uuid())
   userId        String
