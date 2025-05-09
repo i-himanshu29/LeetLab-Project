@@ -33,7 +33,7 @@ export const getSubmissionForProblem = async (req,res)=>{
             }
         })
         res.status(200).json({
-            success:"true",
+            success:true,
             message:"Submission fetched Successfully",
             submissions
         })
@@ -55,7 +55,7 @@ export const getAllTheSubmissionForProblem = async (req,res)=>{
         })
 
         res.status(200).json({
-            success:"true",
+            success:true,
             message:"Submission fetched Successfully",
             count:submission
         })

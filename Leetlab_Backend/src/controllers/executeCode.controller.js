@@ -125,8 +125,8 @@ export const executeCode = async (req, res) => {
       passed: result.passed,
       stdout: result.stdout,
       expected: result.expected,
-      srderr: result.stderr,
-      compiledOutput: result.compile_output,
+      stderr: result.stderr,
+      compileOutput: result.compile_output,
       status: result.status,
       memory: result.memory,
       time: result.time,
@@ -139,10 +139,10 @@ export const executeCode = async (req, res) => {
     //
     const submissionWithTestCase = await db.submission.findUnique({
       where: {
-        id: submission.id,
+        id: submission.id
       },
       include: {
-        testCases: true,
+        testCases: true
       },
     });
 

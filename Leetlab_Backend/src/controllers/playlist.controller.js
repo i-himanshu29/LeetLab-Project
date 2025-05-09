@@ -69,7 +69,7 @@ export const getPlayListDetails = async (req, res) => {
     });
 
     if (!playlist) {
-      res.status(404).json({
+      return res.status(404).json({
         error: "Playlist not found",
       });
     }
@@ -95,9 +95,9 @@ export const addProblemToPlaylist = async (req, res) => {
 
     // create records for each problems in the playlist
     const problemInPlaylist = await db.problemInPlaylist.createMany({
-      data: problemIds.map((problemId) => {
-        playlistId, problemId;
-      }),
+      data: problemIds.map((problemId) => ({
+        playlistId, problemId
+      })),
     });
 
     res.status(201).json({
