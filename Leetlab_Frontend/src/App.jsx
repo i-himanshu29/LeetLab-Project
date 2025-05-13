@@ -7,7 +7,8 @@ import SignUpPage from './page/SignUpPage'
 import { useAuthStore } from './store/useAuthStore'
 import { Loader } from 'lucide-react'
 import { useEffect } from 'react'
-import Layout from './Layout.jsx/Layout'
+import Layout from './Layout/Layout'
+
 import AdminRoute from './components/AdminRoute'
 import AddProblem from './page/AddProblem'
 const App = () => {
@@ -20,7 +21,7 @@ const App = () => {
 
   if(isCheckingAuth && !authUser){
     return (
-      <div classname="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center h-screen">
         <Loader className="size-10 animate-spin"/>
       </div>
     )
@@ -30,12 +31,14 @@ const App = () => {
     <Toaster/>
       <Routes>
       
-        <Route path='/' element={<Layout/>} />
-
+        <Route path='/' element={<Layout/>} >
         <Route
           index
           element={authUser ? <HomePage/> : <Navigate to={"/login"}/>}
         />
+        </Route>
+
+        
         <Route
           path='/login'
           element={!authUser ? <LoginPage/> : <Navigate to={"/"} />}

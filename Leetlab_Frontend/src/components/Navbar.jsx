@@ -1,5 +1,5 @@
 import React from 'react'
-import {User,Code,Logout} from "lucide-react";
+import {User,Code,LogOut} from "lucide-react";
 import { useAuthStore } from '../store/useAuthStore';
 import {Link} from "react-router-dom";
 import LogoutButton from './LogoutButton';
@@ -72,7 +72,7 @@ const Navbar = () => {
               )}
               <li>
                 <LogoutButton className="hover:bg-primary hover:text-white">
-                  <Logout className="w-4 h-4 mr-2" />
+                  <LogOut className="w-4 h-4 mr-2" />
                   Logout
                 </LogoutButton>
               </li>

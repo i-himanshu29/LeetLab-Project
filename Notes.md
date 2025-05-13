@@ -278,3 +278,55 @@ Postman sample:
         "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(a + b);\n    }\n}"
     }
 }
+
+
+````
+
+````
+# Cohort Project Requirement(Requirement Gathering)
+
+1.Users can create small groups that anyone can join, with a member limit of 4 per group which have 1 leader and 3 members. 
+
+2.Email validation requires importing CSV data for selective sign-up.
+
+3.All cohorts are visible after signing in.
+
+4.leaders can create a group and cannot join other groups.
+
+5.Regular users can view all groups.
+
+6.User profiles tracking include GitHub, HashNode, and PearList links and twitter.
+
+7.User can give the  reason why he/she wants to join group.
+
+8.Users can send and withdraw group join requests.
+
+9.Leader can disband the group (like he/she donot find any member)
+
+10.System maintains user activity history for leader and User as well.
+
+11.Each group has a notice board managed by admin.
+
+12.If Member can't do their work then admin can remove that user and maintain that notes why that users removed.
+
+13.System tracks roles and responsibilities.
+
+14.Suppose that i want to left that group becoz of xyz reason and also maintained that note.
+
+15. Their is no image in this project either leader or user only use first and last letter of name.
+
+16. Make a audit/activity log.
+
+````
+
+````
+From Anirudh :
+
+go to gym, pray to god, do work at home, switch off social media, don’t get into fights, drink tea
+
+````
+
+Hi i am himanshu maurya and i love todo coding since 2021 and so  far i have learned a lot of things i my journey and i belive a am growing day by day and learn a lots of technologies and for example MERN stack and DSA
+MERN : includes html , css , Javascript , tailwind Css , DaisyUI , react and nextjs as a frontend
+and Expressjs ,  Nodejs , MongoDB , PostgreSql , Docker , Redux , Zustand and RTK
+and in deployment we know : AWS , Docker , Kubernatics ,Queues and many more things.
