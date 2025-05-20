@@ -38,7 +38,7 @@ export const createProblem = async (req, res) => {
         });
       }
 
-      const submissions = testcases.map((input, output) => ({
+      const submissions = testcases.map(({input, output}) => ({
         source_code: solutionCode,
         language_id: languageId,
         stdin: input,
