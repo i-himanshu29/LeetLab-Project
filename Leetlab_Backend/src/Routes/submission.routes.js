@@ -4,8 +4,8 @@ import { getAllSubmission, getAllTheSubmissionForProblem, getSubmissionForProble
 
 const submissionRoutes = express.Router()
 
-submissionRoutes.get("/get-all-submission",authMiddleware, getAllSubmission)
-submissionRoutes.get("/get-submission/:problemId" , authMiddleware , getSubmissionForProblem)
+submissionRoutes.get("/get-all-submissions",authMiddleware, getAllSubmission)
+submissionRoutes.get("/get-submissions/:problemId" , authMiddleware , getSubmissionForProblem)
 submissionRoutes.get("/get-submissions-count/:problemId",authMiddleware , getAllTheSubmissionForProblem)
 
 export default submissionRoutes

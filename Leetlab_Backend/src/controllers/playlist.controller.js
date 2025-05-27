@@ -96,7 +96,8 @@ export const addProblemToPlaylist = async (req, res) => {
     // create records for each problems in the playlist
     const problemInPlaylist = await db.problemInPlaylist.createMany({
       data: problemIds.map((problemId) => ({
-        playlistId, problemId
+        playListId:playlistId, 
+        problemId
       })),
     });
 

@@ -80,22 +80,22 @@ export const executeCode = async (req, res) => {
       data: {
         userId,
         problemId,
-        source_code: source_code,
+        sourceCode: source_code,
         language: getLanguageName(language_id),
         stdin: stdin.join("\n"),
         stdout: JSON.stringify(detailedResults.map((r) => r.stdout)),
         stderr: detailedResults.some((r) => r.stderr)
-          ? JSON.stringify(detailedResults.some((r) => r.stderr))
+          ? JSON.stringify(detailedResults.map((r) => r.stderr))
           : null,
-        compiledOutput: detailedResults.some((r) => r.compile_output)
-          ? JSON.stringify(detailedResults.some((r) => r.compile_output))
+        compileOutput: detailedResults.some((r) => r.compile_output)
+          ? JSON.stringify(detailedResults.map((r) => r.compile_output))
           : null,
         status: allPassed ? "Accepted" : "Wrong Answer", // you can store enum values as well (refer schema)
         memory: detailedResults.some((r) => r.memory)
-          ? JSON.stringify(detailedResults.some((r) => r.memory))
+          ? JSON.stringify(detailedResults.map((r) => r.memory))
           : null,
         time: detailedResults.some((r) => r.time)
-          ? JSON.stringify(detailedResults.some((r) => r.time))
+          ? JSON.stringify(detailedResults.map((r) => r.time))
           : null,
       },
     });
