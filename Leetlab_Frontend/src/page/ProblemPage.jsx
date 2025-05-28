@@ -38,7 +38,7 @@ const ProblemPage = () => {
   const [activeTab, setActiveTab] = useState("description");
   const [selectedLanguage, setSelectedLanguage] = useState("javascript");
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [testCases, setTestCases] = useState([]);
+  const [testcases, setTestCases] = useState([]);
 
   const { executeCode, submission, isExecuting } = useExecutionStore();
 
@@ -361,7 +361,7 @@ const ProblemPage = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {testCases.map((testCase, index) => (
+                      {testcases.map((testCase, index) => (
                         <tr key={index}>
                           <td className="font-mono">{testCase.input}</td>
                           <td className="font-mono">{testCase.output}</td>
