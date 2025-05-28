@@ -53,7 +53,7 @@ const ProblemPage = () => {
         problem.codeSnippets?.[selectedLanguage] || submission?.sourceCode || ""
       );
       setTestCases(
-        problem.testCases?.map((tc) => ({
+        problem.testcases?.map((tc) => ({
           input: tc.input,
           output: tc.output,
         })) || []
@@ -79,8 +79,8 @@ const ProblemPage = () => {
     e.preventDefault();
     try {
       const language_id = getLanguageId(selectedLanguage);
-      const stdin = problem.testCases.map((tc) => tc.input);
-      const expected_outputs = problem.testCases.map((tc) => tc.output);
+      const stdin = problem.testcases.map((tc) => tc.input);
+      const expected_outputs = problem.testcases.map((tc) => tc.output);
       executeCode(code, language_id, stdin, expected_outputs, id);
     } catch (error) {
       console.log("Error executing code", error);
