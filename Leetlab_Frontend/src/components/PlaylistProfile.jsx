@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { usePlaylistStore } from '../store/usePlaylistStore.js';
 import { Link } from 'react-router-dom';
 import { BookOpen, ChevronDown, ChevronUp, Clock, List, Tag, ExternalLink } from 'lucide-react';
-
+import CreatePlaylistModal from "./CreatePlaylistModal.jsx"
 const PlaylistProfile = () => {
   const { getAllPlaylists, playlists = [], deletePlaylist } = usePlaylistStore(); // Default playlists to an empty array
   const [expandedPlaylist, setExpandedPlaylist] = useState(null);
-
+  const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   useEffect(() => {
     getAllPlaylists();
   }, [getAllPlaylists]);
@@ -44,14 +45,26 @@ const PlaylistProfile = () => {
       day: 'numeric'
     }).format(date);
   };
+  
+  const { createPlaylist } = usePlaylistStore();
+  const handleCreatePlaylist = async (data) => {
+    await createPlaylist(data);
+  };
 
   return (
     <div className="p-4 bg-base-200 min-h-screen">
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-primary">My Playlists</h2>
-          <button className="btn btn-primary btn-sm">Create Playlist</button>
+          <button className="btn btn-primary btn-sm"
+            onClick={() => setIsCreateModalOpen(true)}
+          >Create Playlist</button>
         </div>
+        <CreatePlaylistModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSubmit={handleCreatePlaylist}
+      />
 
         {Array.isArray(playlists) && playlists.length === 0 ? (
           <div className="card bg-base-100 shadow-xl">
@@ -167,6 +180,7 @@ const PlaylistProfile = () => {
             ))}
           </div>
         )}
+
       </div>
     </div>
   );
