@@ -4,13 +4,22 @@ import { Link } from "react-router-dom";
 
 import { Bookmark, PencilIcon, Trash, TrashIcon, Plus } from "lucide-react";
 
+import {useActions} from "../store/useActions"
+import AddToPlaylistModal from "./AddToPlaylist"
+import CreatePlaylistModal from "./CreatePlaylistModal"
+import { usePlaylistStore } from "../store/usePlaylistStore";
+
 const ProblemTable = ({ problems }) => {
   const { authUser } = useAuthStore();
-
+  const { isDeletingProblem,onDeleteProblem } = useActions();
+  const { createPlaylist } = usePlaylistStore();
   const [search, setSearch] = useState("");
   const [difficulty, setDifficulty] = useState("ALL");
   const [selectedTag, setSelectedTag] = useState("ALL");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] = useState(false);
+  const [selectedProblemId, setSelectedProblemId] = useState(null);
 
   const allTags = useMemo(() => {
     if (!Array.isArray(problems)) return [];
@@ -46,20 +55,36 @@ const ProblemTable = ({ problems }) => {
   
   const difficulties = ["EASY", "MEDIUM", "HARD"];
 
-  const handleDelete = (id) => {};
+  const handleDelete = (id) => {
+    onDeleteProblem(id);
+  };
 
-  const handleAddToPlaylist = (id) => {};
+  // To be implemented 
+  // const handleEdit = (id) =>{
+
+  // }
+
+
+  const handleCreatePlaylist = async (data) => {
+    await createPlaylist(data);
+  };
+
+  const handleAddToPlaylist = (problemId) => {
+    setSelectedProblemId(problemId);
+    setIsAddToPlaylistModalOpen(true);
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto mt-10">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Problems</h2>
-        <button className="btn btn-primary gap-2" onClick={() => {}}>
+        <button className="btn btn-primary gap-2" onClick={() => setIsCreateModalOpen(true)}>
           <Plus className="w-4 h-4" />
           Create Playlist
         </button>
       </div>
 
+      {/* Filters  */}
       <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
         <input
           type="text"
@@ -94,6 +119,7 @@ const ProblemTable = ({ problems }) => {
         </select>
       </div>
 
+      {/* Tables  */}
       <div className="overflow-x-auto rounded-xl shadow-md">
         <table className="table table-zebra table-lg bg-base-200 text-base-content">
           <thead className="bg-base-200">
@@ -165,7 +191,9 @@ const ProblemTable = ({ problems }) => {
                             >
                               <TrashIcon className="w-4 h-4 text-white" />
                             </button>
-                            <button disabled className="btn btn-sm btn-warning">
+                            <button disabled className="btn btn-sm btn-warning"
+                              // onClick={() => handleEdit(problem.id)}
+                            >
                               <PencilIcon className="w-4 h-4 text-white" />
                             </button>
                           </div>
@@ -195,7 +223,7 @@ const ProblemTable = ({ problems }) => {
         </table>
       </div>
 
-      {/*  */}
+      {/* pagination */}
       <div className="flex justify-center mt-6 gap-2">
         <button
           className="btn btn-sm"
@@ -215,6 +243,20 @@ const ProblemTable = ({ problems }) => {
           Next
         </button>
       </div>
+
+      {/* Modals  */}
+
+      <CreatePlaylistModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSubmit={handleCreatePlaylist}
+      />
+      
+      <AddToPlaylistModal
+        isOpen={isAddToPlaylistModalOpen}
+        onClose={() => setIsAddToPlaylistModalOpen(false)}
+        problemId={selectedProblemId}
+      />
     </div>
   );
 };
