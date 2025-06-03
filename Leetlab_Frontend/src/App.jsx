@@ -13,6 +13,7 @@ import AdminRoute from './components/AdminRoute'
 import AddProblem from './page/AddProblem'
 import ProblemPage from './page/ProblemPage'
 import Profile from './page/Profile'
+import LandingPage from './page/LandingPage'
 
 const App = () => {
 
@@ -34,12 +35,18 @@ const App = () => {
     <Toaster/>
       <Routes>
       
-        <Route path='/' element={<Layout/>} >
+        {/* <Route path='/' element={<Layout/>} >
         <Route
           index
           element={authUser ? <HomePage/> : <Navigate to={"/login"}/>}
         />
-        </Route>
+        </Route> */}
+
+        <Route
+          path='/'
+          // element={authUser ? <LandingPage/> : <Navigate to={"/login"}/>}
+          element={<LandingPage/>}
+        />
 
         <Route
           path='/login'
