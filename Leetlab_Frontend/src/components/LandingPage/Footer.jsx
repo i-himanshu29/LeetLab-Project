@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <div>
         
-      <footer className="footer border-t-2 border-gray-900 items-center justify-around mt-10 flex footer-horizontal footer-center bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 text-base-content rounded p-10 shadow-gray-400 ">
+      <footer className="footer border-t-2 border-gray-900 items-center justify-around  flex footer-horizontal footer-center bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 text-base-content rounded p-10 shadow-gray-400 ">
 
         <Link to="/" className="flex items-center gap-3 cursor-pointer">
           <motion.img
@@ -20,7 +20,7 @@ const Footer = () => {
             whileTap={{ scale: 0.95 }}
           />
           <motion.span
-            className="text-lg md:text-2xl font-extrabold tracking-tight text-white hidden md:block"
+            className="text-2xl font-serif md:text-2xl font-extrabold tracking-tight text-white hidden md:block"
             whileHover={{ color: "#4ADE80" }} // Green hover effect
           >
             CodeBeta
@@ -34,13 +34,13 @@ const Footer = () => {
             <Link to="/problem" className="link link-hover">
               Problems
             </Link>
-            <Link href="#pricing" className="link link-hover">Pricing</Link>
+            <Link to='/pricing' className="link link-hover">Pricing</Link>
           </nav>
 
           <nav>
             <div className="grid grid-flow-col gap-4">
               <Link
-                to="https://twitter.com"
+                to="https://x.com/ihimanshu29"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn tooltip"
@@ -79,9 +79,9 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col items-center gap-1 p-2 mt-5">
-          <h1 className="text-xl text-gray-100 p-5 mt-3">Address:</h1>
+          <h1 className="text-xl font-serif text-gray-100 p-5 mt-3">Address:</h1>
           <IoLocationOutline className="text-white text-3xl" />
-          <p className="text-blue-100 font-semibold text-md">Amethi, UP</p>
+          <p className="text-blue-100 font-semibold text-md">Lucknow, Uttar Pradesh</p>
         </div>
       </footer>
       

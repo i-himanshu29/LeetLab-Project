@@ -1,25 +1,19 @@
-import React, { useState } from "react";
+
+
+// Perfect ...........................................................................
+
+import React from "react";
 import { Link } from "react-router-dom";
-import { LogOut, User } from "lucide-react"; // Icons for user profile
+import { LogOut, Code, User } from "lucide-react"; // Icons for user profile
 import { motion } from "framer-motion"; // Framer Motion for animations
+import { useAuthStore } from "../../store/useAuthStore"; // Adjust path accordingly
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Authentication state
-  const authUser = {
-    name: "John Doe",
-    image: "https://avatar.iran.liara.run/public/boy",
-    role: "USER", // Replace with "ADMIN" for admin options
-  };
-
-  const handleLogin = () => setIsLoggedIn(true);
-  const handleLogout = () => setIsLoggedIn(false);
+  const { authUser, logout } = useAuthStore();
 
   return (
     <motion.nav
-      className="flex  shadow-2xl mb-5 items-center justify-around  px-2 py-4 bg-transition rounded-2xl w-full"
-      initial={{ y: -50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      className="flex shadow-2xl items-center justify-around px-2 py-4 bg-gradient-to-r from-gray-800 via-gray-800 to-gray-800 w-full"
     >
       {/* Logo */}
       <Link to="/" className="flex items-center gap-3 cursor-pointer">
@@ -45,7 +39,7 @@ const Navbar = () => {
           transition={{ type: "spring", stiffness: 300 }}
         >
           <Link
-            to="/problem"
+            to="/home"
             className="text-white text-xl md:text-2xl font-serif font-medium hover:bg-primary/20 px-3 py-2 rounded-lg transition"
           >
             Problem
@@ -56,17 +50,17 @@ const Navbar = () => {
           whileHover={{ scale: 1.1 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          <a
-            id="pricing"
+          <Link
+            to="/pricing"
             className="text-white text-xl md:text-2xl font-serif font-medium hover:bg-primary/20 px-3 py-2 rounded-lg transition"
           >
             Pricing
-          </a>
+          </Link>
         </motion.div>
       </div>
 
       {/* Conditional Login/Signup or Profile */}
-      {isLoggedIn ? (
+      {authUser ? (
         <div className="dropdown dropdown-end">
           <label
             tabIndex={0}
@@ -77,7 +71,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
             >
               <img
-                src={authUser.image}
+                src={authUser.image || "https://avatar.iran.liara.run/public/boy"} // Fallback image
                 alt="User Avatar"
                 className="object-cover"
               />
@@ -100,14 +94,25 @@ const Navbar = () => {
                 My Profile
               </Link>
             </li>
+            {authUser?.role === "ADMIN" && (
+                <li>
+                  <Link
+                    to="/add-problem"
+                    className="hover:bg-primary hover:text-white text-base font-semibold"
+                  >
+                    <Code className="w-4 h-4 mr-1" />
+                    Add Problem
+                  </Link>
+                </li>
+              )}
             <li>
-              <button
-                onClick={handleLogout}
+              <Link to='/'
+                onClick={logout}
                 className="hover:bg-primary hover:text-white flex items-center"
               >
                 <LogOut className="w-4 font-serif h-4 mr-2" />
                 Logout
-              </button>
+              </Link>
             </li>
           </ul>
         </div>
@@ -118,8 +123,7 @@ const Navbar = () => {
         >
           <Link
             to="/login"
-            className="text-white  font-serif text-lg md:text-xl font-medium bg-primary/30  hover:bg-primary/20 px-3 py-2 rounded-lg transition"
-            onClick={handleLogin}
+            className="text-white font-serif text-lg md:text-xl font-medium bg-primary/30 hover:bg-primary/20 px-3 py-2 rounded-lg transition"
           >
             Login
           </Link>

@@ -1,5 +1,5 @@
 import React from "react";
-import video from "../../../public/JS-intro.mp4"
+import video from "../../../public/Leetcode.mp4"
 const Video = () => {
   return (
     <div className="flex h-max mt-5 mb-10 flex-col items-center p-4">
@@ -7,7 +7,7 @@ const Video = () => {
         Some Glimpses of CodeBeta
       </h1>
       <div className="border-10 border-gray-800 shadow-gray-800 rounded-md">
-        <video controls autoPlay muted loop width="950" height="500" className=" rounded-md">
+        <video controls autoPlay muted loop width="1050" height="500" className=" rounded-md">
           <source src={video} type="video/mp4" />
         </video>
       </div>

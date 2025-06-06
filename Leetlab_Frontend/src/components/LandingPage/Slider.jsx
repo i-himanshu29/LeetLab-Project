@@ -19,7 +19,7 @@ const cards = [
 const Slider = () => {
   return (
     <div className="relative overflow-hidden py-4 h-max mt-15 mb-20">
-    <h1 className="font-bold text-4xl font-serif flex justify-center  mx-auto mt-4 mb-10">Master These Core Concepts</h1>
+    <h1 className="font-bold text-4xl font-serif flex justify-center items-center mx-auto mt-4 mb-10">Master These Core Concepts</h1>
       <div className="slider-container flex">
         {/* Duplicate cards to enable infinite scrolling */}
         {cards.concat(cards).map((card, index) => (
@@ -35,8 +35,8 @@ const Slider = () => {
         ))}
       </div>
 
-      {/* Inline CSS for animation */}
-      <style jsx>{`
+      {/* Inline CSS for animation <style jsx></style>*/}
+      <style>{`
         .slider-container {
           display: flex;
           gap: 1rem;
