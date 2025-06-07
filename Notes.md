@@ -325,8 +325,3 @@ From Anirudh :
 go to gym, pray to god, do work at home, switch off social media, don’t get into fights, drink tea
 
 ````
-
-Hi i am himanshu maurya and i love todo coding since 2021 and so  far i have learned a lot of things i my journey and i belive a am growing day by day and learn a lots of technologies and for example MERN stack and DSA
-MERN : includes html , css , Javascript , tailwind Css , DaisyUI , react and nextjs as a frontend
-and Expressjs ,  Nodejs , MongoDB , PostgreSql , Docker , Redux , Zustand and RTK
-and in deployment we know : AWS , Docker , Kubernatics ,Queues and many more things.
